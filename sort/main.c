@@ -30,7 +30,7 @@ static int test_data[][2][10] = {
 
 void test(){
     for(int i = 0;i< sizeof(test_data)/sizeof(test_data[0]);i++){
-        quick_sort(test_data[i][0], 10);
+        merge_sort(test_data[i][0], 10);
         if(test_equal(test_data[i][0], 10, test_data[i][1], 10) == 1){
             for(int j = 0;j<10;j++){
                 printf("%d,", test_data[i][0][j]);

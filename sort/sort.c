@@ -82,11 +82,46 @@ void quick_sort(int *a, int len){
     swap(a, randIndex, 0);
     _quick_sort(a, 0, len-1);
 }
+static int *aux;
+
+//原地归并
+static void merge(int *a, int lo, int mid, int hi){
+    int i = lo;
+    int j = mid+1;
+    for(int k = lo;k<=hi;k++){
+        aux[k] = a[k]; //先复制一遍
+    }
+    for(int k = lo;k<=hi;k++){
+        if(i > mid){
+            a[k] = aux[j++];
+        }
+        else if(j > hi){
+            a[k] = aux[i++];
+        }
+        else if(aux[j] < aux[i]){
+            a[k] = aux[j++];
+        }else{
+            a[k] = aux[i++];
+        }
+    }
+}
+
+//需要复制元素
+//自顶向下
+static void _merge_sort(int *a, int lo, int hi){
+    if(lo >= hi) return;
+    int mid = lo +  (hi - lo)/2;
+    _merge_sort(a, lo, mid);
+    _merge_sort(a, mid+1, hi);
+    merge(a, lo, mid, hi);
+}
 
 //归并排序
 //a[1..n] = merge(sort(a[1..n/2]), sort(a[n/2..n]))
 void merge_sort(int *a, int len){
-
+    aux = (int *)malloc(len);
+    _merge_sort(a, 0, len-1);
+    free(aux);
 }
 
 //堆排序
