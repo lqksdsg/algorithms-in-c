@@ -6,3 +6,5 @@ void bubble_sort(int *a, int len);
 void quick_sort(int *a, int len);
 //归并排序
 void merge_sort(int *a, int len);
+//堆排序
+void heap_sort(int *a, int len);
